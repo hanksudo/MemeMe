@@ -11,11 +11,14 @@ import UIKit
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var imagePickerView: UIImageView!
+    @IBOutlet weak var cameraBarButton: UIBarButtonItem!
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
-//        print(UIImagePickerController.isSourceTypeAvailable(.camera))
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        cameraBarButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
     }
 
     @IBAction func pickImageFromCamera(_ sender: Any) {
