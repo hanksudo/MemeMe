@@ -7,11 +7,40 @@
 //
 import UIKit
 
-struct Meme {
+struct Meme:Codable {
     var topText: String
     var bottomText: String
-    var originalImage: UIImage
-    var memedImage: UIImage?
+    var filename: String
 }
 
+extension Meme {
+    init(image: UIImage, topText: String, bottomText: String) {
+        let filename = String(Date().timeIntervalSince1970)
+        self.init(topText: topText, bottomText: bottomText, filename: filename)
+        saveImage(image: image, filename: filename)
 
+        save()
+    }
+    
+    private func save() {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.memes.insert(self, at: 0)
+        UserDefaults.standard.set(try? PropertyListEncoder().encode(appDelegate.memes), forKey:"memes")
+    }
+    
+    private func saveImage(image: UIImage, filename: String) {
+        let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        
+        let fileURL = documentDirectory.appendingPathComponent(filename)
+        
+        if let data = UIImageJPEGRepresentation(image, 1.0),
+            !FileManager.default.fileExists(atPath: fileURL.path) {
+            do {
+                try data.write(to: fileURL)
+                print("file saved", fileURL)
+            } catch {
+                print("error saving file:", error)
+            }
+        }
+    }
+}

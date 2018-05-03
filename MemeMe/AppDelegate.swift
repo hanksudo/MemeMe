@@ -12,10 +12,15 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
-
+    var memes = [Meme]()
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        if let data = UserDefaults.standard.value(forKey:"memes") as? Data {
+            memes = try! PropertyListDecoder().decode(Array<Meme>.self, from: data)
+        }
+//        print(memes)
+        
         return true
     }
 
