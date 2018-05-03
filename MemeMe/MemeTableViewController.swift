@@ -28,8 +28,11 @@ class MemeTableViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        // MARK: check new items
+        if let selectedRow = tableView.indexPathForSelectedRow {
+            tableView.deselectRow(at: selectedRow, animated: true)
+        }
         
+        // MARK: check new items
         let memesCount = appDelegate.memes.count
         let tableRowCount = self.tableView.numberOfRows(inSection: 0)
         let newItems = appDelegate.memes[..<(memesCount - tableRowCount)]
