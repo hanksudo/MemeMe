@@ -74,6 +74,13 @@ class MemeTableViewController: UITableViewController {
         return cell
     }
 
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let delete = UITableViewRowAction(style: .destructive, title: "delete") { (action, indexPath) in
+            self.appDelegate.memes[indexPath.row].remove()
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+        return [delete]
+    }
 
     // MARK: Did select row at
     // Performs a segue with particular meme when a row is selected

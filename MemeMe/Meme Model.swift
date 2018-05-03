@@ -13,6 +13,8 @@ struct Meme:Codable {
     var filename: String
 }
 
+let appDelegate = UIApplication.shared.delegate as! AppDelegate
+
 extension Meme {
     init(image: UIImage, topText: String, bottomText: String) {
         let filename = String(Date().timeIntervalSince1970)
@@ -22,8 +24,14 @@ extension Meme {
         save()
     }
     
+    func remove() {
+        if let index = appDelegate.memes.index(where: {$0.filename == self.filename}) {
+            appDelegate.memes.remove(at: index)
+        }
+        UserDefaults.standard.set(try? PropertyListEncoder().encode(appDelegate.memes), forKey:"memes")
+    }
+    
     private func save() {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.memes.insert(self, at: 0)
         UserDefaults.standard.set(try? PropertyListEncoder().encode(appDelegate.memes), forKey:"memes")
     }
