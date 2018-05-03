@@ -10,7 +10,10 @@ import UIKit
 
 class MemeTableViewController: UITableViewController {
 
-    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    var memes: [Meme]! {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        return appDelegate.memes
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,12 +40,12 @@ class MemeTableViewController: UITableViewController {
         }
         
         // MARK: check new items
-        let memesCount = appDelegate.memes.count
+        let memesCount = memes.count
         let tableRowCount = self.tableView.numberOfRows(inSection: 0)
         let newCount = memesCount - tableRowCount
 
         if newCount > 0 {
-            let newItems = appDelegate.memes[..<(newCount)]
+            let newItems = memes[..<(newCount)]
             var indexes = [IndexPath]()
             for i in 0..<newItems.count {
                 let index = IndexPath(row: i, section: 0)
@@ -63,13 +66,13 @@ class MemeTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return appDelegate.memes.count
+        return memes.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "tableMemeCell", for: indexPath)
         
-        let meme = appDelegate.memes[(indexPath as NSIndexPath).row]
+        let meme = memes[(indexPath as NSIndexPath).row]
         
         cell.textLabel?.text = meme.topText
         cell.detailTextLabel?.text = meme.bottomText
@@ -83,7 +86,7 @@ class MemeTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let delete = UITableViewRowAction(style: .destructive, title: "delete") { (action, indexPath) in
-            self.appDelegate.memes[indexPath.row].remove()
+            self.memes[indexPath.row].remove()
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
         return [delete]
@@ -103,7 +106,7 @@ class MemeTableViewController: UITableViewController {
         if segue.identifier == "showMemeDetails" {
             if let dest = segue.destination as? MemeDetailViewController,
                 let index = tableView.indexPathForSelectedRow {
-                let meme = appDelegate.memes[index.row]
+                let meme = memes[index.row]
                 dest.meme = meme
             }
         }

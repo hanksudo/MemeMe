@@ -13,7 +13,11 @@ private let ImageViewTag = 1
 
 class MemeCollectionViewController: UICollectionViewController {
     
-    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    var memes: [Meme]! {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        return appDelegate.memes
+    }
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,12 +25,12 @@ class MemeCollectionViewController: UICollectionViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         // MARK: check new items
-        let memesCount = appDelegate.memes.count
+        let memesCount = memes.count
         let collectionItemCount = (self.collectionView?.numberOfItems(inSection: 0))!
         let newCount = memesCount - collectionItemCount
         
         if newCount > 0 {
-            let newItems = appDelegate.memes[..<(newCount)]
+            let newItems = memes[..<(newCount)]
             var indexes = [IndexPath]()
             for i in 0..<newItems.count {
                 let index = IndexPath(row: i, section: 0)
@@ -81,7 +85,7 @@ class MemeCollectionViewController: UICollectionViewController {
         if segue.identifier == "showMemeDetails" {
             if let dest = segue.destination as? MemeDetailViewController,
                 let index = collectionView?.indexPathsForSelectedItems?.first {
-                let meme = appDelegate.memes[index.row]
+                let meme = memes[index.row]
                 dest.meme = meme
             }
         }
@@ -89,13 +93,13 @@ class MemeCollectionViewController: UICollectionViewController {
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return appDelegate.memes.count
+        return memes.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
         
-        let meme = appDelegate.memes[(indexPath as NSIndexPath).row]
+        let meme = memes[(indexPath as NSIndexPath).row]
         
         if let view = cell.viewWithTag(ImageViewTag) as? UIImageView {
             view.image = meme.loadImage()
