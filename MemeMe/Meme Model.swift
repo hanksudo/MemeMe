@@ -43,4 +43,11 @@ extension Meme {
             }
         }
     }
+    
+    func loadImage() -> UIImage! {
+        let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let imageURL = documentDirectory.appendingPathComponent(filename)
+        
+        return UIImage(contentsOfFile: imageURL.path)
+    }
 }

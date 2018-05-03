@@ -30,8 +30,6 @@ class EditorViewController: UIViewController, UIImagePickerControllerDelegate, U
         shareButton.isEnabled = false
         saveButton.isEnabled = false
         cameraBarButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
-        
-//        imagePickerView.image = loadImage(String(1525352011.60595))
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -138,13 +136,6 @@ class EditorViewController: UIViewController, UIImagePickerControllerDelegate, U
         let memedImage = generateMemedImage()
         let _ = Meme(image: memedImage, topText: topTextField.text!, bottomText: bottomTextField.text!)
         self.navigationController?.popViewController(animated: true)
-    }
-    
-    fileprivate func loadImage(_ filename: String) -> UIImage! {
-        let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let imageURL = documentDirectory.appendingPathComponent(filename)
-        
-        return UIImage(contentsOfFile: imageURL.path)
     }
     
     @IBAction func requestShare(_ sender: Any) {
