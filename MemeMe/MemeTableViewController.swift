@@ -39,9 +39,10 @@ class MemeTableViewController: UITableViewController {
         // MARK: check new items
         let memesCount = appDelegate.memes.count
         let tableRowCount = self.tableView.numberOfRows(inSection: 0)
-        let newItems = appDelegate.memes[..<(memesCount - tableRowCount)]
+        let newCount = memesCount - tableRowCount
 
-        if newItems.count > 0 {
+        if newCount > 0 {
+            let newItems = appDelegate.memes[..<(newCount)]
             var indexes = [IndexPath]()
             for i in 0..<newItems.count {
                 let index = IndexPath(row: i, section: 0)
@@ -50,6 +51,8 @@ class MemeTableViewController: UITableViewController {
             tableView.performBatchUpdates({
                 tableView.insertRows(at: indexes, with: UITableViewRowAnimation.automatic)
             }, completion: nil)
+        } else {
+            tableView.reloadData()
         }
     }
 

@@ -23,9 +23,10 @@ class MemeCollectionViewController: UICollectionViewController {
         // MARK: check new items
         let memesCount = appDelegate.memes.count
         let collectionItemCount = (self.collectionView?.numberOfItems(inSection: 0))!
-        let newItems = appDelegate.memes[..<(memesCount - collectionItemCount)]
+        let newCount = memesCount - collectionItemCount
         
-        if newItems.count > 0 {
+        if newCount > 0 {
+            let newItems = appDelegate.memes[..<(newCount)]
             var indexes = [IndexPath]()
             for i in 0..<newItems.count {
                 let index = IndexPath(row: i, section: 0)
@@ -34,18 +35,21 @@ class MemeCollectionViewController: UICollectionViewController {
             collectionView?.performBatchUpdates({
                 collectionView?.insertItems(at: indexes)
             }, completion: nil)
+        } else {
+            collectionView?.reloadData()
         }
         
         configureUI()
     }
     
     func configureUI() {
-        let minimumInterItemSpacing: CGFloat = 5
-        let minimumLineSpacing: CGFloat = 5
+        let minimumInterItemSpacing: CGFloat = 3
+        let minimumLineSpacing: CGFloat = 3
         let numberOfColumns: CGFloat = 3
         
         let width = ((collectionView?.frame.width)! - minimumInterItemSpacing - minimumLineSpacing) / numberOfColumns
         
+        print(width)
         let layout = collectionViewLayout as! UICollectionViewFlowLayout
         layout.minimumInteritemSpacing = minimumInterItemSpacing
         layout.minimumLineSpacing = minimumLineSpacing

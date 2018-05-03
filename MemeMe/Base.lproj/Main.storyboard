@@ -145,30 +145,30 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="0FH-Hc-L2S">
-                            <size key="itemSize" width="50" height="50"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="5" id="0FH-Hc-L2S">
+                            <size key="itemSize" width="125" height="125"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="KKc-wk-Edg">
-                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <rect key="frame" x="0.0" y="0.0" width="125" height="125"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="125" height="125"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kIf-C6-1W2">
-                                            <rect key="frame" x="0.0" y="0.0" width="10" height="10"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="124" height="124"/>
                                         </imageView>
                                     </subviews>
                                 </view>
                                 <constraints>
-                                    <constraint firstItem="kIf-C6-1W2" firstAttribute="leading" secondItem="KKc-wk-Edg" secondAttribute="leading" id="1aZ-zy-gQD"/>
-                                    <constraint firstAttribute="bottom" secondItem="kIf-C6-1W2" secondAttribute="bottom" constant="40" id="eK2-eV-K0X"/>
-                                    <constraint firstAttribute="trailing" secondItem="kIf-C6-1W2" secondAttribute="trailing" constant="40" id="gh2-RP-hyM"/>
-                                    <constraint firstItem="kIf-C6-1W2" firstAttribute="top" secondItem="KKc-wk-Edg" secondAttribute="top" id="oD7-QR-LzD"/>
+                                    <constraint firstAttribute="bottom" secondItem="kIf-C6-1W2" secondAttribute="bottom" constant="1" id="4qz-o4-JCq"/>
+                                    <constraint firstItem="kIf-C6-1W2" firstAttribute="leading" secondItem="KKc-wk-Edg" secondAttribute="leading" id="8w9-r3-t7C"/>
+                                    <constraint firstAttribute="trailing" secondItem="kIf-C6-1W2" secondAttribute="trailing" constant="1" id="HjQ-YG-y2H"/>
+                                    <constraint firstItem="kIf-C6-1W2" firstAttribute="top" secondItem="KKc-wk-Edg" secondAttribute="top" id="lAZ-8t-m8l"/>
                                 </constraints>
                             </collectionViewCell>
                         </cells>
@@ -184,7 +184,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="awV-8H-i4A" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1520.8" y="375.56221889055473"/>
+            <point key="canvasLocation" x="1520.5" y="375.5"/>
         </scene>
         <!--Meme Detail View Controller-->
         <scene sceneID="phS-NA-Gvo">
@@ -328,6 +328,6 @@
         <image name="table" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Mrc-g5-EBf"/>
+        <segue reference="Jkq-s9-MqF"/>
     </inferredMetricsTieBreakers>
 </document>
