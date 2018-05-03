@@ -1,9 +1,10 @@
 # MemeMe
 
-長輩圖!? (Swift)
+Learning by doing - 長輩圖產生器!? (Swift)
 
-<img src="screenshots/1.jpg" width="40%">
-<img src="screenshots/2.jpg" width="40%">
+<img src="screenshots/1.jpg" width="30%">
+<img src="screenshots/2.jpg" width="30%">
+<img src="screenshots/3.jpg" width="30%">
 
 ## Links
 
