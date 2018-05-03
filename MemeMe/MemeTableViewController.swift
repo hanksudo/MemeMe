@@ -10,12 +10,40 @@ import UIKit
 
 class MemeTableViewController: UITableViewController {
 
-    var memes: [Meme]!
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        memes = appDelegate.memes
+        
+        let height = (tableView.frame.height)
+        let width = (tableView.frame.width)
+        let rowsInPortraitMode: CGFloat = 5.2
+        let rowsInLandscapeMode: CGFloat = 2.5
+        
+        if height > width {
+            tableView.rowHeight = height / rowsInPortraitMode
+        } else {
+            tableView.rowHeight = height / rowsInLandscapeMode
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        // MARK: check new items
+        
+        let memesCount = appDelegate.memes.count
+        let tableRowCount = self.tableView.numberOfRows(inSection: 0)
+        let newItems = appDelegate.memes[..<(memesCount - tableRowCount)]
+
+        if newItems.count > 0 {
+            var indexes = [IndexPath]()
+            for i in 0..<newItems.count {
+                let index = IndexPath(row: i, section: 0)
+                indexes.append(index)
+            }
+            tableView.performBatchUpdates({
+                tableView.insertRows(at: indexes, with: UITableViewRowAnimation.automatic)
+            }, completion: nil)
+        }
     }
 
     // MARK: - Table view data source
@@ -25,13 +53,13 @@ class MemeTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return memes.count
+        return appDelegate.memes.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "tableMemeCell", for: indexPath)
         
-        let meme = memes[(indexPath as NSIndexPath).row]
+        let meme = appDelegate.memes[(indexPath as NSIndexPath).row]
         
         cell.textLabel?.text = meme.topText
         cell.detailTextLabel?.text = meme.bottomText
