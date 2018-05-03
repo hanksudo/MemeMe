@@ -9,24 +9,48 @@
 import UIKit
 
 private let reuseIdentifier = "Cell"
+private let ImageViewTag = 1
 
 class MemeCollectionViewController: UICollectionViewController {
+    
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Register cell classes
-        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-
-        // Do any additional setup after loading the view.
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    override func viewWillAppear(_ animated: Bool) {
+        // MARK: check new items
+        let memesCount = appDelegate.memes.count
+        let collectionItemCount = (self.collectionView?.numberOfItems(inSection: 0))!
+        let newItems = appDelegate.memes[..<(memesCount - collectionItemCount)]
+        
+        if newItems.count > 0 {
+            var indexes = [IndexPath]()
+            for i in 0..<newItems.count {
+                let index = IndexPath(row: i, section: 0)
+                indexes.append(index)
+            }
+            collectionView?.performBatchUpdates({
+                collectionView?.insertItems(at: indexes)
+            }, completion: nil)
+        }
+        
+        configureUI()
+    }
+    
+    func configureUI() {
+        let minimumInterItemSpacing: CGFloat = 5
+        let minimumLineSpacing: CGFloat = 5
+        let numberOfColumns: CGFloat = 3
+        
+        let width = ((collectionView?.frame.width)! - minimumInterItemSpacing - minimumLineSpacing) / numberOfColumns
+        
+        let layout = collectionViewLayout as! UICollectionViewFlowLayout
+        layout.minimumInteritemSpacing = minimumInterItemSpacing
+        layout.minimumLineSpacing = minimumLineSpacing
+        
+        layout.itemSize = CGSize(width: width, height: width)
     }
 
     /*
@@ -38,25 +62,41 @@ class MemeCollectionViewController: UICollectionViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
-    // MARK: UICollectionViewDataSource
-
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+    
+    // MARK: Did select item at
+    // Performs a segue with particular meme when a cell is selected
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "showMemeDetails", sender: AnyObject.self)
+    }
+    
+    // MARK: Prepare for segue
+    // Packages up selected meme to pass along
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showMemeDetails" {
+            if let dest = segue.destination as? MemeDetailViewController,
+                let index = collectionView?.indexPathsForSelectedItems?.first {
+                let meme = appDelegate.memes[index.row]
+                dest.meme = meme
+            }
+        }
     }
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
-        return 0
+        return appDelegate.memes.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
-    
-        // Configure the cell
-    
+        
+        let meme = appDelegate.memes[(indexPath as NSIndexPath).row]
+        
+        if let view = cell.viewWithTag(ImageViewTag) as? UIImageView {
+            view.image = meme.loadImage()
+        }
+        
         return cell
     }
 

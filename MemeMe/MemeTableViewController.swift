@@ -15,6 +15,10 @@ class MemeTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        configureUI()
+    }
+    
+    func configureUI() {
         let height = (tableView.frame.height)
         let width = (tableView.frame.width)
         let rowsInPortraitMode: CGFloat = 5.2
