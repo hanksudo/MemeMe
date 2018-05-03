@@ -180,8 +180,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Pp6-zp-IHC">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Pp6-zp-IHC">
+                                <rect key="frame" x="0.0" y="20" width="375" height="615"/>
                             </imageView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="htT-MI-h1S">
                                 <rect key="frame" x="0.0" y="623" width="375" height="44"/>
@@ -196,13 +196,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="rxd-k8-Wha" firstAttribute="trailing" secondItem="Pp6-zp-IHC" secondAttribute="trailing" id="enm-zs-aBe"/>
-                            <constraint firstItem="Pp6-zp-IHC" firstAttribute="leading" secondItem="rxd-k8-Wha" secondAttribute="leading" id="gQy-qA-uZt"/>
+                            <constraint firstItem="rxd-k8-Wha" firstAttribute="trailing" secondItem="Pp6-zp-IHC" secondAttribute="trailing" id="VEQ-31-nui"/>
+                            <constraint firstItem="rxd-k8-Wha" firstAttribute="bottom" secondItem="Pp6-zp-IHC" secondAttribute="bottom" constant="32" id="XQJ-dP-r8U"/>
                             <constraint firstItem="htT-MI-h1S" firstAttribute="leading" secondItem="rxd-k8-Wha" secondAttribute="leading" id="h9X-Jd-Tfy"/>
-                            <constraint firstItem="rxd-k8-Wha" firstAttribute="bottom" secondItem="Pp6-zp-IHC" secondAttribute="bottom" constant="44" id="jJI-iT-gox"/>
+                            <constraint firstItem="Pp6-zp-IHC" firstAttribute="top" secondItem="rxd-k8-Wha" secondAttribute="top" id="qjw-zp-eiK"/>
                             <constraint firstItem="rxd-k8-Wha" firstAttribute="trailing" secondItem="htT-MI-h1S" secondAttribute="trailing" id="qr5-AK-fRH"/>
                             <constraint firstItem="rxd-k8-Wha" firstAttribute="bottom" secondItem="htT-MI-h1S" secondAttribute="bottom" id="rJp-6a-i1w"/>
-                            <constraint firstItem="rxd-k8-Wha" firstAttribute="top" secondItem="Pp6-zp-IHC" secondAttribute="top" constant="20" id="vD4-lu-rDY"/>
+                            <constraint firstItem="Pp6-zp-IHC" firstAttribute="leading" secondItem="rxd-k8-Wha" secondAttribute="leading" id="zxO-mp-l42"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="rxd-k8-Wha"/>
                     </view>
@@ -212,7 +212,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oq6-X1-ABa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2532" y="16.641679160419791"/>
+            <point key="canvasLocation" x="2531.7841079460272" y="15.199999999999999"/>
         </scene>
         <!--Meme Table View Controller-->
         <scene sceneID="3di-Ca-CjU">

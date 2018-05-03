@@ -8,11 +8,24 @@
 
 import UIKit
 
-class MemeDetailViewController: UIViewController {
+class MemeDetailViewController: UIViewController, UIGestureRecognizerDelegate {
 
     var meme: Meme!
+    var swipeGesture: UISwipeGestureRecognizer!
     
     @IBOutlet weak var imageView: UIImageView!
+    
+    override func viewDidLoad() {
+        swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(goBack))
+        swipeGesture.direction = .down
+        swipeGesture.delegate = self
+        self.view.addGestureRecognizer(swipeGesture)
+    }
+    
+    @objc func goBack() {
+        self.view.removeGestureRecognizer(swipeGesture)
+        dismiss(animated: true, completion: nil)
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         imageView.image = meme.loadImage()
