@@ -28,9 +28,11 @@ class EditorViewController: UIViewController, UIImagePickerControllerDelegate, U
     
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.setNavigationBarHidden(true, animated: false)
+        subscribeToKeyboardNotifications()
     }
     override func viewWillDisappear(_ animated: Bool) {
         navigationController?.setNavigationBarHidden(false, animated: false)
+        unsubscribeToKeyboardNotifications()
     }
     
     override var prefersStatusBarHidden: Bool {
@@ -67,11 +69,37 @@ class EditorViewController: UIViewController, UIImagePickerControllerDelegate, U
         textField.textAlignment = .center
     }
     
-    // MARK UITextField Delegate
+    // MARK: Keyboard show / hide
+    func subscribeToKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: .UIKeyboardWillHide, object: nil)
+    }
+    func unsubscribeToKeyboardNotifications() {
+        NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillHide, object: nil)
+    }
+    
+    @objc func keyboardWillShow(_ notification: Notification) {
+        if bottomTextField.isFirstResponder {
+            view.frame.origin.y -= getKeyboardHeight(notification)
+        }
+    }
+    
+    @objc func keyboardWillHide(_ notification: Notification) {
+        if bottomTextField.isFirstResponder {
+            view.frame.origin.y += getKeyboardHeight(notification)
+        }
+    }
+    
+    func getKeyboardHeight(_ notification:Notification) -> CGFloat {
+        let userInfo = notification.userInfo
+        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue // of CGRect
+        return keyboardSize.cgRectValue.height
+    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-            return true
+        return true
     }
     
     // MARK: Image picker delegate
@@ -94,5 +122,9 @@ class EditorViewController: UIViewController, UIImagePickerControllerDelegate, U
     @IBAction func cancel(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
+    
+    @IBAction func requestShare(_ sender: Any) {
+    }
+    
 }
 
