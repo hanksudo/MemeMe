@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  EditorViewController.swift
 //  MemeMe
 //
 //  Created by Hank Wang on 2018/5/3.
@@ -8,17 +8,18 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class EditorViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var imagePickerView: UIImageView!
     @IBOutlet weak var cameraBarButton: UIBarButtonItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        cameraBarButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        cameraBarButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
+        navigationController?.setNavigationBarHidden(true, animated: false)
     }
 
     @IBAction func pickImageFromCamera(_ sender: Any) {
