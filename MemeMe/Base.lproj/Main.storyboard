@@ -91,6 +91,11 @@
                                             <action selector="requestShare:" destination="BYZ-38-t0r" id="1J4-4H-sEF"/>
                                         </connections>
                                     </barButtonItem>
+                                    <barButtonItem systemItem="save" id="EpL-tV-eJY" userLabel="Save Button">
+                                        <connections>
+                                            <action selector="actionSave:" destination="BYZ-38-t0r" id="ewa-eH-LiF"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="AHd-QN-jBv"/>
                                     <barButtonItem systemItem="cancel" id="Cyf-VF-AnX">
                                         <connections>
@@ -128,6 +133,7 @@
                         <outlet property="cameraBarButton" destination="Zx9-8L-GaT" id="GBI-Sm-OtO"/>
                         <outlet property="imagePickerView" destination="cfW-Rf-n8f" id="Bhl-lR-U2e"/>
                         <outlet property="imageSourceToolbar" destination="iTb-Nw-83A" id="CCv-Y0-7w4"/>
+                        <outlet property="saveButton" destination="EpL-tV-eJY" id="5Pc-Ow-n7m"/>
                         <outlet property="shareButton" destination="l9U-dB-7JO" id="XgU-O4-0y4"/>
                         <outlet property="sharingToolbar" destination="l7o-eX-4IE" id="jg0-cV-Vx3"/>
                         <outlet property="topTextField" destination="0pJ-cj-2KI" id="o9G-Fr-cRt"/>
@@ -137,10 +143,10 @@
             </objects>
             <point key="canvasLocation" x="584.79999999999995" y="-842.42878560719646"/>
         </scene>
-        <!--Collection View Controller-->
+        <!--Meme Collection View Controller-->
         <scene sceneID="uhn-k3-NFk">
             <objects>
-                <collectionViewController id="CEq-eV-CLf" sceneMemberID="viewController">
+                <collectionViewController id="CEq-eV-CLf" customClass="MemeCollectionViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="yY8-tm-tSq">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -172,10 +178,10 @@
             </objects>
             <point key="canvasLocation" x="1521" y="376"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Meme Table View Controller-->
         <scene sceneID="3di-Ca-CjU">
             <objects>
-                <tableViewController id="zxR-1s-kor" sceneMemberID="viewController">
+                <tableViewController id="zxR-1s-kor" customClass="MemeTableViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Rcg-28-Ict">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

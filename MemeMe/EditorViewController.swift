@@ -15,8 +15,11 @@ class EditorViewController: UIViewController, UIImagePickerControllerDelegate, U
     @IBOutlet weak var imagePickerView: UIImageView!
     @IBOutlet weak var cameraBarButton: UIBarButtonItem!
     @IBOutlet weak var shareButton: UIBarButtonItem!
+    @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var sharingToolbar: UIToolbar!
     @IBOutlet weak var imageSourceToolbar: UIToolbar!
+    
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +28,10 @@ class EditorViewController: UIViewController, UIImagePickerControllerDelegate, U
         setTextAttribute(textField: bottomTextField)
         
         shareButton.isEnabled = false
+        saveButton.isEnabled = false
         cameraBarButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
+        
+//        imagePickerView.image = loadImage(String(1525352011.60595))
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -112,6 +118,7 @@ class EditorViewController: UIViewController, UIImagePickerControllerDelegate, U
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             imagePickerView.image = image
             shareButton.isEnabled = true
+            saveButton.isEnabled = true
         }
         
         dismiss(animated: true, completion: nil)
@@ -127,9 +134,22 @@ class EditorViewController: UIViewController, UIImagePickerControllerDelegate, U
         self.navigationController?.popViewController(animated: true)
     }
     
+    @IBAction func actionSave(_ sender: Any) {
+        let memedImage = generateMemedImage()
+        let _ = Meme(image: memedImage, topText: topTextField.text!, bottomText: bottomTextField.text!)
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    fileprivate func loadImage(_ filename: String) -> UIImage! {
+        let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let imageURL = documentDirectory.appendingPathComponent(filename)
+        
+        return UIImage(contentsOfFile: imageURL.path)
+    }
+    
     @IBAction func requestShare(_ sender: Any) {
         let memedImage = generateMemedImage()
-//        let meme = Meme(topText: topTextField.text, bottomText: bottomTextField.text, originalImage: imagePickerView.image, memedImage: memedImage)
+
         let controller = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil)
         present(controller, animated: true, completion: nil)
     }
