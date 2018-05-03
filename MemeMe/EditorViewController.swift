@@ -15,6 +15,8 @@ class EditorViewController: UIViewController, UIImagePickerControllerDelegate, U
     @IBOutlet weak var imagePickerView: UIImageView!
     @IBOutlet weak var cameraBarButton: UIBarButtonItem!
     @IBOutlet weak var shareButton: UIBarButtonItem!
+    @IBOutlet weak var sharingToolbar: UIToolbar!
+    @IBOutlet weak var imageSourceToolbar: UIToolbar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,12 +46,14 @@ class EditorViewController: UIViewController, UIImagePickerControllerDelegate, U
     @IBAction func pickImageFromCamera(_ sender: Any) {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
+        imagePicker.allowsEditing = true
         imagePicker.sourceType = .camera
         present(imagePicker, animated: true, completion: nil)
     }
     @IBAction func pickImageFromAlbum(_ sender: Any) {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
+        imagePicker.allowsEditing = true
         imagePicker.sourceType = .photoLibrary
         present(imagePicker, animated: true, completion: nil)
     }
@@ -59,9 +63,9 @@ class EditorViewController: UIViewController, UIImagePickerControllerDelegate, U
     func setTextAttribute(textField: UITextField) {
         let textAttributes:[String: Any] = [
             NSAttributedStringKey.foregroundColor.rawValue: UIColor.white,
-            NSAttributedStringKey.font.rawValue: UIFont(name: "HelveticaNeue-CondensedBlack", size: 55)!,
+            NSAttributedStringKey.font.rawValue: UIFont(name: "HelveticaNeue-Bold", size: 55)!,
             NSAttributedStringKey.strokeColor.rawValue: UIColor.black,
-            NSAttributedStringKey.strokeWidth.rawValue: -6.0]
+            NSAttributedStringKey.strokeWidth.rawValue: -2.0]
         
         textField.delegate = self
         textField.textColor = UIColor.white
@@ -124,7 +128,30 @@ class EditorViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
     
     @IBAction func requestShare(_ sender: Any) {
+        let memedImage = generateMemedImage()
+//        let meme = Meme(topText: topTextField.text, bottomText: bottomTextField.text, originalImage: imagePickerView.image, memedImage: memedImage)
+        let controller = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil)
+        present(controller, animated: true, completion: nil)
+    }
+
+    // MARK: handle meme
+    
+    func generateMemedImage() -> UIImage {
+        showToolbars(show: false)
+        
+        UIGraphicsBeginImageContext(self.view.frame.size)
+        view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
+        let memedImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        
+        showToolbars(show: true)
+        
+        return memedImage
     }
     
+    func showToolbars(show: Bool) {
+        sharingToolbar.isHidden = !show
+        imageSourceToolbar.isHidden = !show
+    }
 }
 
