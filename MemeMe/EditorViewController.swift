@@ -58,6 +58,13 @@ class EditorViewController: UIViewController, UIImagePickerControllerDelegate, U
         textField.textAlignment = .center
     }
     
+    // MARK UITextField Delegate
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+            return true
+    }
+    
     // MARK: image picker delegate
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
