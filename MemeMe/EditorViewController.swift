@@ -48,7 +48,7 @@ class EditorViewController: UIViewController, UIImagePickerControllerDelegate, U
     func setTextAttribute(textField: UITextField) {
         let textAttributes:[String: Any] = [
             NSAttributedStringKey.foregroundColor.rawValue: UIColor.white,
-            NSAttributedStringKey.font.rawValue: UIFont(name: "impact", size: 55)!,
+            NSAttributedStringKey.font.rawValue: UIFont(name: "HelveticaNeue-CondensedBlack", size: 55)!,
             NSAttributedStringKey.strokeColor.rawValue: UIColor.black,
             NSAttributedStringKey.strokeWidth.rawValue: -6.0]
         
