@@ -14,7 +14,6 @@ class EditorViewController: UIViewController, UIImagePickerControllerDelegate, U
     @IBOutlet weak var bottomTextField: UITextField!
     @IBOutlet weak var imagePickerView: UIImageView!
     @IBOutlet weak var cameraBarButton: UIBarButtonItem!
-    @IBOutlet weak var shareButton: UIBarButtonItem!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var sharingToolbar: UIToolbar!
     @IBOutlet weak var imageSourceToolbar: UIToolbar!
@@ -27,7 +26,6 @@ class EditorViewController: UIViewController, UIImagePickerControllerDelegate, U
         setTextAttribute(textField: topTextField)
         setTextAttribute(textField: bottomTextField)
         
-        shareButton.isEnabled = false
         saveButton.isEnabled = false
         cameraBarButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
     }
@@ -115,7 +113,6 @@ class EditorViewController: UIViewController, UIImagePickerControllerDelegate, U
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             imagePickerView.image = image
-            shareButton.isEnabled = true
             saveButton.isEnabled = true
         }
         
@@ -136,13 +133,6 @@ class EditorViewController: UIViewController, UIImagePickerControllerDelegate, U
         let memedImage = generateMemedImage()
         let _ = Meme(image: memedImage, topText: topTextField.text!, bottomText: bottomTextField.text!)
         self.navigationController?.popViewController(animated: true)
-    }
-    
-    @IBAction func requestShare(_ sender: Any) {
-        let memedImage = generateMemedImage()
-
-        let controller = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil)
-        present(controller, animated: true, completion: nil)
     }
 
     // MARK: handle meme
